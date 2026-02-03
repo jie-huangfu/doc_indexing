@@ -15,11 +15,10 @@ if __name__ == "__main__":
                 pipeline_options=VlmPipelineOptions(
                     enable_remote_services = True,
                     vlm_options = ApiVlmOptions(
-                        #url=AnyUrl("http://localhost:1234/v1/chat/completions"),
-                        url=AnyUrl("http://localhost:8000/v1/completions"),
+                        url=AnyUrl("http://localhost:11434/v1/chat/completions"),
                         params=dict(
                             #model="internvl3_5-4b",
-                            model = "google/gemma-3-4b-it",
+                            model = "qwen3-vl:4b",
                             max_tokens=8192,
                             temperature=0.1,
                         ),
