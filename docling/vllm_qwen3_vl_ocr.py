@@ -7,6 +7,12 @@ from docling.datamodel.pipeline_options_vlm_model import (
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.pipeline.vlm_pipeline import VlmPipeline
 
+# vllm serve  Qwen/Qwen3-VL-4B-Instruct \
+# --host 0.0.0.0 --port 8000     \
+# --tensor-parallel-size=1   \
+# --max-model-len=4096     --max-num-batched-tokens=512   \
+# --max-num-seqs=64
+
 if __name__ == "__main__":
     doc_converter = DocumentConverter(
         format_options={
@@ -17,7 +23,6 @@ if __name__ == "__main__":
                     vlm_options = ApiVlmOptions(
                         url=AnyUrl("http://localhost:8000/v1/chat/completions"),
                         params=dict(
-                            #model="internvl3_5-4b",
                             model = "Qwen/Qwen3-VL-4B-Instruct",
                             max_tokens=2048,
                             temperature=0.1,
