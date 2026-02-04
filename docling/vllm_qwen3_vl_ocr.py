@@ -13,6 +13,10 @@ from docling.pipeline.vlm_pipeline import VlmPipeline
 # --max-model-len=4096     --max-num-batched-tokens=512   \
 # --max-num-seqs=64
 
+# vllm serve deepseek-ai/DeepSeek-OCR \
+# --logits_processors vllm.model_executor.models.deepseek_ocr:NGramPerReqLogitsProcessor \
+# --no-enable-prefix-caching --mm-processor-cache-gb 0
+
 if __name__ == "__main__":
     doc_converter = DocumentConverter(
         format_options={
@@ -24,6 +28,7 @@ if __name__ == "__main__":
                         url=AnyUrl("http://localhost:8000/v1/chat/completions"),
                         params=dict(
                             model = "Qwen/Qwen3-VL-4B-Instruct",
+                            #model = "deepseek-ai/DeepSeek-OCR",
                             max_tokens=2048,
                             temperature=0.1,
                         ),
@@ -40,5 +45,5 @@ if __name__ == "__main__":
     result = doc_converter.convert("./pdffiles/label.pdf")
     markdown_content = result.document.export_to_markdown()
 
-    with open("./output/label_content.md", 'w', encoding='utf-8') as f:
+    with open("./output/label_qwen3_4b.md", 'w', encoding='utf-8') as f:
         f.write(markdown_content)
